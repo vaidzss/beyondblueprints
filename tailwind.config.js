@@ -9,6 +9,7 @@ export default {
       fontFamily: {
         poppins: ['Poppins', 'sans-serif'],
         playfair: ['Playfair Display', 'serif'],
+        plus: ['Plus Jakarta Sans', 'sans-serif'],
       },
     },
   },

@@ -1,33 +1,28 @@
 import heroImage from "/hero.jpg";
 import Navbar from "./Navbar";
+import Services from "./Services";
+
+import TimelineSection from "./TimelineSection";
 
 function HomePage() {
   return (
     <section id="home">
       <Navbar />
-      <div className="w-full h-screen relative pt-5">
-        <img
-          src={heroImage}
-          alt="Hero"
-          className="w-full h-full object-cover lg:object-contain transition-all duration-500 opacity-[.85]"
-        />
-        <div className="absolute w-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
-          <h1 className="text-4xl md:text-6xl font-playfair font-extrabold text-[#310e10] ">
-          &ldquo;Beautiful. Balanced. Yours.&rdquo;
-          </h1>
-          <p className="text-sm font-poppins md:text-lg text-[#310e10] mt-5">
-            Smart design for modern living.
-          </p>
-        </div>
-      </div>
+      <div className="bg-[#fbf2e1] h-screen mb-10">  
+        <div className="flex p-10 gap-10 justify-between">
+          <h2 className="text-[#310e10] font-poppins z-10 pt-10 font-extrabold text-4xl md:text-5xl lg:text-9xl">
+              BEYOND<br/>
+              <h2 className="text-[#6f4d38] border-l">IMAGINATIONS.</h2>
 
-      <div className=" mt-10 h-full bg-[#FBF2E1]">
-        <div className="w-full text-center p-20">
-          <h2 className="text-[#310e10]  font-poppins font-bold text-4xl md:text-5xl lg:text-7xl">
-            What we do?
+
           </h2>
+          {/* <img src={heroImage} alt="hero" className="w-1/2 -translate-x-80 translate-y-40 object-cover justify-right rounded-md"/>
+         */}
         </div>
       </div>
+      <Services/>
+      <TimelineSection/>
+
     </section>
   );
 }
