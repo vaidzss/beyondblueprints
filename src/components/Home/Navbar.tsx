@@ -21,12 +21,16 @@ function Navbar() {
 
   
 useEffect(() => {
+  let timer: ReturnType<typeof setTimeout>;
+
+
   const handleScroll = () => {
     const currentScrollY = window.scrollY;
 
-    // Always show navbar at the very top
+    // Always show navbar at top of the page
     if (currentScrollY <= 10) {
       setShowNavbar(true);
+      setLastScrollY(currentScrollY);
       return;
     }
 
@@ -34,14 +38,13 @@ useEffect(() => {
     if (currentScrollY < lastScrollY) {
       setShowNavbar(true);
 
-      // Clear previous timer
-      if (hideTimer) clearTimeout(hideTimer);
+      // Clear any existing hide timer
+      if (timer) clearTimeout(timer);
 
-      // Hide again after 2s idle
-      const timer = setTimeout(() => {
+      // Set a new hide timer
+      timer = setTimeout(() => {
         setShowNavbar(false);
       }, 2000);
-      setHideTimer(timer);
     } else {
       // Scrolling down
       setShowNavbar(false);
@@ -54,10 +57,10 @@ useEffect(() => {
 
   return () => {
     window.removeEventListener("scroll", handleScroll);
-    if (hideTimer) clearTimeout(hideTimer);
+    if (timer) clearTimeout(timer);
   };
-}, [lastScrollY, hideTimer]);
-;
+}, [lastScrollY]);
+
 
   
   useEffect(() => {
@@ -87,7 +90,7 @@ useEffect(() => {
       <nav
         className={`${
           showNavbar ? "-translate-y-0" : "-translate-y-full"
-        } backdrop-blur-lg bg-[#fbf2e1] sticky top-0 z-50 h-20 flex justify-around px-2 transition-transform duration-750 md:px-10`}
+        } backdrop-blur-lg bg-[#fbf2e1] fixed w-full top-0 z-50 h-20 flex justify-around px-2 transition-transform duration-750 md:px-10`}
       >
         <div className="logo md:size-14 size-10 md:pt-3 pt-5">
           <img src="/logo.jpg" alt="logo" className="rounded-full" />
