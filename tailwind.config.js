@@ -11,6 +11,12 @@ export default {
         playfair: ['Playfair Display', 'serif'],
         plus: ['Plus Jakarta Sans', 'sans-serif'],
       },
+      transformOrigin: {
+    'top': 'top',
+    'bottom': 'bottom',
+    'left': 'left',
+    'right': 'right',
+  }
     },
   },
   plugins: [],
