@@ -8,6 +8,7 @@ import Services from "./Services";
 import { useRef } from "react";
 import {  MdArrowForwardIos } from "react-icons/md";
 import HorizontalCarousel from "./Carousel";
+import Footer from "../Footer/Footer";
 
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
@@ -96,6 +97,7 @@ function HomePage() {
 
       <Services />
       <HorizontalCarousel/>
+      <Footer/>
     </section>
   );
 }
