@@ -3,7 +3,7 @@
 
    const Footer = () => {
   return (
-    <footer className="bg-[#fbf2e1] text-[#310e10] pt-12 pb-6 px-4 md:px-20">
+    <footer className="bg-[#e6ddc8] text-[#310e10] pt-12 pb-6 px-4 md:px-20">
       <div className="grid md:grid-cols-4 gap-8 text-sm justify-items-center items-center">
         {/* Brand Section */}
         <div className="justify-items-center">
@@ -56,7 +56,7 @@
       </div>
 
       {/* Bottom Line */}
-      <div className="mt-10 text-center text-xs text-[#cbbca8]">
+      <div className="mt-10 text-center text-xs text-[#000000]">
         © {new Date().getFullYear()} Beyond Blueprint. All rights reserved.
       </div>
     </footer>

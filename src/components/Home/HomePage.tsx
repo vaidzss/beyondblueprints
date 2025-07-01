@@ -24,7 +24,7 @@ function HomePage() {
   document.fonts.ready.then(() => {
     const split = new SplitText(headingRef.current, { type: "chars" });
 
-    gsap.set(split.chars, { opacity: 0, y: 50 });
+    gsap.set(split.chars, { opacity: 0, x: 1 });
 
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -32,7 +32,7 @@ function HomePage() {
         start: "top 80%",
         toggleActions: "play none restart reverse",
         onLeaveBack: () => {
-          gsap.set(split.chars, { opacity: 0, y: 50 });
+          gsap.set(split.chars, { opacity: 0, x: 1});
         },
       },
     });
@@ -41,7 +41,7 @@ function HomePage() {
       opacity: 1,
       y: 0,
       duration: 0.5,
-      ease: "power4.out",
+      ease: "power1.inOut",
       stagger: 0.05,
     });
 
@@ -79,17 +79,17 @@ function HomePage() {
   return (
     <section id="home">
       <Navbar />
-     <div className="bg-[url('/hero.jpg')] bg-cover bg-center h-[100vh] opacity-85">
-        <div className=" items-center flex justify-center lg:py-44 py-40 z-10 ">
+     <div className="bg-[url('/hero.png')] bg-cover bg-center h-[100vh] w-full">
+        <div ref={headingRef}  className=" items-center gap-3 md:flex text-center justify-center md:pt-64 pt-40 z-50">
             <h1
-             ref={headingRef} 
-             className="h-1 text-[#211107] font-poppins font-extrabold text-6xl md:text-7xl lg:text-9xl">
-              BEYOND<br/> 
-              <span className="text-[#310e10] font-poppins font-extrabold text-6xl md:text-7xl lg:text-9xl"> BLUEPRINT</span>
-            </h1>
+             
+             className="text-[#ffffff] drop-shadow-xl lg:px-8 py-2 rounded-md font-libre text-4xl lg:text-7xl">
+              BEYOND<br/> </h1>
+              <span ref={headingRef} className="text-[#310e10]  font-libre text-4xl lg:text-7xl"> BLUEPRINT</span>
+            
         </div>
-        <div className="btn hover:bg-[#fbf2e1] mx-28 h-10 lg:mt-28 mt:20 bg-cover justify-self-center rounded-full bg-red-950 hover:shadow-2xl transition-transform ease-in-out duration-750">
-        <button className=" hover:text-black font-plus font-bold text-center p-2 flex text-white ">
+        <div className="btn hover:bg-[#fbf2e1] h-10 bg-cover justify-self-center rounded-full bg-cyan-950 hover:shadow-2xl transition-transform ease-in-out duration-750">
+        <button className=" hover:text-black md:text-base font-plus text-sm text-center p-2 flex text-white ">
           Know More <MdArrowForwardIos className="text-lg my-1" />
         </button>
         </div>

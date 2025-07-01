@@ -76,32 +76,33 @@ useGSAP(() => {
   return (
     <section
       ref={sectionRef}
-      className="relative  h-screen overflow-hidden"
+      className="relative overflow-hidden"
     >
        <div
     ref={containerRef}
-    className="flex h-full"
+    className="flex"
       >
         {points.map((point,i) => (
           <div
             key={i}
-            className="carousel-item md:w-screen w-full h-full bg-[#310e10] text-white"
+            className="carousel-item md:w-screen w-full h-screen bg-[#fff9ee] text-white"
           >
             
-            <h2 className="p-10 text-5xl md:text-7xl font-poppins font-extrabold text-center text-[#daa356]">
+            <h2 className="p-10 text-5xl md:text-7xl font-libre font-extrabold text-center text-[#2f0303]">
               Why Choose Us?
             </h2>
-
-            <h4 className="text-2xl font-plus font-bold text-center py-4">
+            <div className="flex flex-col md:flex-row items-center py-10 justify-between gap-20 px-6 md:px-28">
+              <div className="md:w-1/2">
+            <h4 className="text-2xl font-playfair font-semibold mb-3 text-[#6f4d38]">
             {i+1}.{point.title}
             </h4>
-            <div className="justify-items-center items-center">
-              <img src={point.img} className="rounded-md size-72"/>
-            </div>
-            <div className="mt-5 px-4 lg:size-96 lg:justify-self-center">
-            <p className="font-poppins text-md text-center text-[#fbf2e1]">
+                <p className="font-poppins md:text-base text-sm text-[#310e10]">
               {point.desc}
             </p>
+            </div>
+            <div className="md:w-1/2">
+              <img src={point.img} className="rounded-md size-[80%] md:size-[25vw]"/>
+            </div>
             </div>
           </div>
         ))}

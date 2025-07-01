@@ -90,18 +90,17 @@ useEffect(() => {
       <nav
         className={`${
           showNavbar ? "-translate-y-0" : "-translate-y-full"
-        } backdrop-blur-lg bg-[#fbf2e1] fixed w-full top-0 z-50 h-20 flex justify-around px-2 transition-transform duration-750 md:px-10`}
+        } fixed w-full top-0 z-50 h-20 flex justify-around px-2 transition-transform duration-750 md:px-10`}
       >
         <div className="logo md:size-14 size-10 md:pt-3 pt-5">
           <img src="/logo.jpg" alt="logo" className="rounded-full" />
         </div>
-
-        <div className="pt-6 hidden md:block">
-          <ul className="flex gap-5 font-plus font-semibold">
-            <li className="text-[#6f4d38] hover:text-[#310e10] cursor-pointer">Home</li>
-            <li className="text-[#6f4d38] hover:text-[#310e10] cursor-pointer">Portfolio</li>
-            <li className="text-[#6f4d38] hover:text-[#310e10] cursor-pointer">About Us</li>
-            <li className="text-[#6f4d38] hover:text-[#310e10] cursor-pointer">Contact</li>
+        <div className=" hidden md:flex">
+          <ul className="flex gap-5 font-libre items-center  text-center justify-self-center">
+            <li className="hover:text-white text-[#310e10] cursor-pointer">Home</li>
+            <li className="hover:text-white text-[#310e10] cursor-pointer">Portfolio</li>
+            <li className="hover:text-white text-[#310e10] cursor-pointer">About Us</li>
+            <li className="hover:text-white text-[#310e10] cursor-pointer">Contact</li>
           </ul>
         </div>
 
@@ -114,17 +113,17 @@ useEffect(() => {
       {showMenu && (
         <div
           ref={menuRef}
-          className="mob-nav bg-[#fbf2e1] fixed top-0 right-0 w-full h-screen z-[50] overflow-y-auto"
+          className="mob-nav backdrop-blur-sm fixed top-0 right-0 w-full h-screen z-[50] overflow-y-auto"
         >
           <button className="absolute top-4 right-4" onClick={handleClick}>
             <MdClose size={30} />
           </button>
 
-          <ul className="flex flex-col gap-6 mt-24 text-center font-plus font-semibold text-[#6f4d38] text-xl">
-            <li className="hover:text-[#310e10]">Home</li>
-            <li className="hover:text-[#310e10]">Portfolio</li>
-            <li className="hover:text-[#310e10]">About Us</li>
-            <li className="hover:text-[#310e10]">Contact</li>
+          <ul className="flex flex-col gap-6 mt-24 text-center font-libre text-[#310e10] text-xl">
+            <li className="hover:text-white">Home</li>
+            <li className="hover:text-white">Portfolio</li>
+            <li className="hover:text-white">About Us</li>
+            <li className="hover:text-white">Contact</li>
           </ul>
         </div>
       )}
