@@ -6,9 +6,10 @@ import Navbar from "./Navbar";
 import Services from "./Services";
 
 import { useRef } from "react";
-import {  MdArrowForwardIos } from "react-icons/md";
-import HorizontalCarousel from "./Carousel";
 import Footer from "../Footer/Footer";
+import HeroSlideshow from "./HeroSlideShow";
+import Carousel from "./Carousel";
+import Testimonials from "./Testimonials";
 
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
@@ -79,24 +80,11 @@ function HomePage() {
   return (
     <section id="home">
       <Navbar />
-     <div className="bg-[url('/hero.png')] bg-cover bg-center opacity-85 h-[100vh] w-full">
-        <div ref={headingRef}  className=" items-center gap-3 md:flex text-center justify-center md:pt-64 pt-40 z-10">
-            <h1
-             
-             className="text-[#ffffff] drop-shadow-xl lg:px-8 py-2 rounded-md font-libre text-4xl lg:text-7xl">
-              BEYOND<br/> </h1>
-              <span ref={headingRef} className="text-[#250404]  font-libre text-4xl lg:text-7xl"> BLUEPRINT</span>
-            
-        </div>
-        <div className="btn hover:bg-[#fbf2e1] h-10 bg-cover justify-self-center rounded-full bg-cyan-950 hover:shadow-2xl transition-transform ease-in-out duration-750">
-        <button className=" hover:text-black md:text-base font-plus text-sm text-center p-2 flex text-white ">
-          Know More <MdArrowForwardIos className="text-lg my-1" />
-        </button>
-        </div>
-     </div>
+      <HeroSlideshow/>
 
       <Services />
-      <HorizontalCarousel/>
+      <Carousel/>
+      <Testimonials/>
       <Footer/>
     </section>
   );

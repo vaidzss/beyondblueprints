@@ -1,10 +1,11 @@
+import Navbar from "../Home/Navbar"
 
 
 function Contact() {
   return (
-    <div>
-      cONtact
-    </div>
+    <section id="contact">
+      <Navbar/>
+    </section>
   )
 }
 

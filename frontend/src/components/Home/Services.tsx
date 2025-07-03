@@ -55,16 +55,6 @@ const sectionVariant: Variants = {
 };
 
 
-const textParentVariant: Variants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.25,
-    },
-  },
-};
-
-
 const textChildVariant: Variants = {
   hidden: { opacity: 0, y: 30 },
   visible: {
@@ -106,16 +96,16 @@ const slideFrom = (direction: "left" | "right"): Variants => ({
 const Services: React.FC = () => {
   return (
     <motion.div
-      className="mt-10 h-full overflow-x-hidden mb-20 smooth-scroll"
+      className="mt-10 bg-white h-full overflow-x-hidden mb-20 smooth-scroll"
       initial="hidden"
       whileInView="visible"
       exit={"exit"}
       viewport={{ once: false, amount: 0.2 }}
       variants={sectionVariant}
     >
-      <div className="w-full text-center p-10 md:p-20">
-        <h2 className="text-[#310e10] font-libre font-bold text-5xl md:text-7xl">
-          What we do?
+      <div className="w-full  text-center p-10 md:p-20">
+        <h2 className="text-[#310e10] font-libre font-bold text-5xl">
+          Services
         </h2>
       </div>
 
@@ -144,14 +134,14 @@ const Services: React.FC = () => {
                 <motion.h2
                 exit={"exit"}
                   variants={textChildVariant}
-                  className="text-[#6f4d38] font-playfair font-bold text-2xl md:text-4xl lg:text-5xl"
+                  className="text-[#6f4d38] font-playfair font-bold text-2xl"
                 >
                   {i + 1}. {service.name}
                 </motion.h2>
                 <motion.p
                 exit={"exit"}
                   variants={textChildVariant}
-                  className="text-[#310e10] font-poppins md:text-base text-sm leading-relaxed"
+                  className="text-[#310e10] font-poppins  text-sm leading-relaxed"
                 >
                   {service.desc}
                 </motion.p>
@@ -159,7 +149,7 @@ const Services: React.FC = () => {
 
             <motion.div
             exit={"exit"}
-              className="md:w-1/2 bg-cyan-950 flex justify-center mt-10 md:mt-0 md:p-14 p-8  md:rounded-full"
+              className="md:size-[30vw] bg-[#310e10] flex justify-center mt-10 md:mt-0 md:p-14 p-8  md:rounded-full"
               initial="hidden"
               whileInView="visible"
               viewport={{ once: false, amount: 0.3 }}
@@ -176,7 +166,7 @@ const Services: React.FC = () => {
                 <img
                   src={service.imageUrl}
                   alt={service.name}
-                  className="w-[80%] md:w-[35vw] rounded-lg object-cover shadow-lg backdrop-blur-xl"
+                  className="w-[80%] md:w-[25vw] object-cover shadow-lg backdrop-blur-xl"
                 />
               </motion.div>
             </motion.div>

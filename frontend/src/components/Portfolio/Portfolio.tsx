@@ -63,18 +63,18 @@ const Portfolio = () => {
         />
 
         {/* Centered Text */}
-        <div className="bg-[url('/grid.png')] w-full h-full bg-cover bg-center bg-no-repeat text-[#310e10]">
+        <div className="w-full h-full bg-cover bg-center bg-no-repeat text-[#310e10]">
           <h1
             ref={text1Ref}
-            className="md:text-3xl font-libre shadow-2xl text-[#310e10] absolute inset-0 flex justify-center items-center"
+            className="md:text-3xl font-libre italic shadow-2xl text-[#310e10] absolute inset-0 flex justify-center items-center"
           >
-            Design that speaks, spaces that feel.
+            &ldquo;Design that speaks, spaces that feel.&rdquo;
           </h1>
           <h1
             ref={text2Ref}
-            className="md:text-3xl font-libre text-[#310e10] absolute inset-0 flex justify-center items-center"
+            className="md:text-3xl italic font-libre text-[#310e10] absolute inset-0 flex justify-center items-center"
           >
-            Where form meets function, beautifully.
+            &ldquo;Where form meets function, beautifully.&rdquo;
           </h1>
         </div>
 

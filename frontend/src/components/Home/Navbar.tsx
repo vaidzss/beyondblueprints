@@ -94,16 +94,19 @@ function Navbar() {
           showNavbar ? "-translate-y-0" : "-translate-y-full"
         } fixed w-full top-0 z-50 h-20 flex justify-around px-2 transition-transform duration-750 md:px-10`}
       >
-        <div className="logo md:size-14 size-10 md:pt-3 pt-5">
-          <img src="/logo.jpg" alt="logo" className="rounded-full" />
+        <div className="logo md:pt-3 pt-5 flex ">
+          <img src="/logo.jpg" alt="logo" className="rounded-full md:size-14 size-10" />
+          <h4 className="font-libre text-lg text-[#310e10] font-extralight mt-2 md:mt-4 px-2">
+            Beyond Blueprint
+          </h4>
         </div>
 
-        <div className="hidden md:flex">
-          <ul className="flex gap-5 font-libre items-center text-[#310e10]">
-            <Link to="/" className="hover:text-black">Home</Link>
-            <Link to="/portfolio" className="hover:text-black">Portfolio</Link>
-            <Link to="/about" className="hover:text-black">About Us</Link>
-            <Link to="/contact" className="hover:text-black">Contact</Link>
+        <div className="hidden md:flex px-4 mt-6 h-10 rounded">
+          <ul className="flex gap-2 font-libre items-center text-[#310e10]">
+            <Link to="/" className="hover:text-rose-950 px-4 hover:bg-[#fbf6e1] hover:py-2 hover:rounded-full hover:transition-all hover:duration-300 hover:ease-in-out">Home</Link>
+            <Link to="/portfolio" className="hover:text-rose-950 hover:bg-[#fbf6e1] px-4 hover:py-2 hover:rounded-full hover:transition-all hover:duration-300 hover:ease-in-out">Portfolio</Link>
+            <Link to="/about" className="hover:text-rose-950 hover:bg-[#fbf6e1] px-4 hover:py-2 hover:rounded-full hover:transition-all hover:duration-300 hover:ease-in-out">About Us</Link>
+            <Link to="/contact" className="hover:text-rose-950 hover:bg-[#fbf6e1] px-4 hover:py-2 hover:rounded-full hover:transition-all hover:duration-300 hover:ease-in-out">Contact</Link>
           </ul>
         </div>
 
@@ -117,7 +120,7 @@ function Navbar() {
         createPortal(
           <div
             ref={menuRef}
-            className="fixed inset-0 z-[9999] backdrop-blur-sm overflow-y-auto"
+            className="fixed inset-0 z-[9999] backdrop-blur-sm overflow-y-auto bg-white"
           >
             <button
               className="absolute top-4 right-4 z-[10000]"
