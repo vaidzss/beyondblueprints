@@ -120,7 +120,7 @@ function Navbar() {
         createPortal(
           <div
             ref={menuRef}
-            className="fixed inset-0 z-[9999] backdrop-blur-sm overflow-y-auto bg-white"
+            className="fixed inset-0 z-[9999] backdrop-blur-sm overflow-y-auto bg-[#fbf4e1]"
           >
             <button
               className="absolute top-4 right-4 z-[10000]"
@@ -129,7 +129,8 @@ function Navbar() {
               <MdClose size={30} />
             </button>
 
-            <ul className="flex flex-col gap-6 mt-24 text-center font-libre text-[#310e10] text-xl">
+            <ul className="flex flex-col gap-6 mt-24 text-center justify-center items-center font-libre text-[#310e10] text-xl">
+              <img src="/logo.jpg" alt="logo" className="rounded-full size-20" />
               <Link to="/" className="hover:text-black">Home</Link>
               <Link to="/portfolio" className="hover:text-black">Portfolio</Link>
               <Link to="/about" className="hover:text-black">About Us</Link>

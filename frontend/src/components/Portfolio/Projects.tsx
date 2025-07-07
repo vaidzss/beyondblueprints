@@ -19,7 +19,7 @@ const Projects = () => {
   const [activeProject, setActiveProject] = useState<string | null>(null);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/photos").then((res) => {
+    axios.get("http://192.168.31.191:5000/api/photos").then((res) => {
       const grouped: ProjectMap = {};
       res.data.forEach((photo: Photo) => {
         if (!grouped[photo.projectId]) {
@@ -38,6 +38,19 @@ const Projects = () => {
   const closeDialog = () => {
     setActiveProject(null);
   };
+  useEffect(() => {
+    if (activeProject) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [activeProject]);
+
   const sectionVariant: Variants = {
     hidden: {
       opacity: 0,
@@ -99,22 +112,22 @@ const Projects = () => {
       {/* Dialog Box */}
       {activeProject && (
         <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-[999]">
-          <div className="bg-white pl-4  rounded-lg  w-full relative h-screen overflow-hidden">
-            {/* Close button */}
-            <button
-              onClick={closeDialog}
-              className="absolute top-2 right-2 text-xl font-bold text-gray-600 hover:text-black"
-            >
-              ✕
-            </button>
+          <div className="bg-white rounded-lg w-full h-screen relative flex flex-col overflow-hidden">
+            {/* Header (Sticky) */}
+            <div className="flex justify-between items-center p-4 border-b sticky top-0 bg-white z-10">
+              <h3 className="text-xl font-bold font-playfair text-[#310e10]">
+                {projectPhotos[activeProject]?.[0]?.title}
+              </h3>
+              <button
+                onClick={closeDialog}
+                className="text-2xl font-bold text-gray-600 hover:text-black"
+              >
+                ✕
+              </button>
+            </div>
 
-            {/* Title */}
-            <h3 className="text-xl font-bold mb-4 font-playfair text-[#310e10]">
-              {projectPhotos[activeProject]?.[0]?.title}
-            </h3>
-
-            {/* Scrollable Photo Grid */}
-            <div className="overflow-y-auto max-h-[90vh] pr-2">
+            {/* Scrollable content */}
+            <div className="overflow-y-auto flex-1 px-4 pb-6">
               <div className="space-y-4">
                 {projectPhotos[activeProject].map((photo) => (
                   <img

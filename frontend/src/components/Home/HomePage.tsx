@@ -10,6 +10,7 @@ import Footer from "../Footer/Footer";
 import HeroSlideshow from "./HeroSlideShow";
 import Carousel from "./Carousel";
 import Testimonials from "./Testimonials";
+import After from "./After";
 
 
 gsap.registerPlugin(ScrollTrigger, SplitText);
@@ -85,6 +86,7 @@ function HomePage() {
       <Services />
       <Carousel/>
       <Testimonials/>
+      <After/>
       <Footer/>
     </section>
   );

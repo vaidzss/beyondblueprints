@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { useEffect, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -20,7 +20,7 @@ const Carousel = () => {
 
   useEffect(() => {
     const fetchPhotos = async () => {
-      const res = await axios.get("http://localhost:5000/api/photos");
+      const res = await axios.get("http://192.168.31.191:5000/api/photos");
       const allPhotos: Photo[] = res.data;
 
       const projectMap = new Map<string, Photo>();
@@ -70,12 +70,45 @@ const Carousel = () => {
 
   if (photos.length === 0) return null;
 
-  return (
-    <div className="w-full py-12 px-4 relative bg-white overflow-hidden">
+  const sectionVariant: Variants = {
+    hidden: {
+      opacity: 0,
+      y: 50,
+      transition: {
+        duration: 0.6,
+        ease: "easeInOut",
+      },
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 1,
+        ease: "easeOut",
+      },
+    },
+    exit: {
+      opacity: 0,
+      y: -50,
+      transition: {
+        duration: 0.8,
+        ease: "easeInOut",
+      },
+    },
+  };
 
-        <h2 className="text-[#310e10] text-center font-libre font-bold text-5xl">
-            Portfolio 
-        </h2>
+  return (
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      exit={"exit"}
+      viewport={{ once: false, amount: 0.3 }}
+      variants={sectionVariant}
+      className="w-full py-12 px-4 relative bg-white overflow-hidden"
+    >
+      <h2 className="text-[#310e10] text-center font-libre font-bold text-5xl">
+        Portfolio
+      </h2>
       {/* Arrows */}
       <button
         onClick={prevSlide}
@@ -91,23 +124,21 @@ const Carousel = () => {
         <FaChevronRight size={22} />
       </button>
 
-      
       {/* Large Wide Image */}
-<div className="w-full max-w-7xl mx-auto flex flex-col items-center mt-10 relative h-[70vh]">
-  <AnimatePresence initial={false} custom={direction}>
-    <motion.img
-      src={photos[current].url}
-      alt={photos[current].title}
-      key={photos[current]._id}
-      className="absolute w-full h-full object-cover rounded-xl shadow-xl"
-      initial={{ x: direction > 0 ? 300 : -300, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      exit={{ x: direction < 0 ? 300 : -300, opacity: 0 }}
-      transition={{ duration: 0.6, ease: "easeInOut" }}
-    />
-  </AnimatePresence>
-</div>
-
+      <div className="w-full max-w-7xl mx-auto flex flex-col items-center mt-10 relative h-[70vh]">
+        <AnimatePresence initial={false} custom={direction}>
+          <motion.img
+            src={photos[current].url}
+            alt={photos[current].title}
+            key={photos[current]._id}
+            className="absolute w-full h-full object-cover rounded-xl shadow-xl"
+            initial={{ x: direction > 0 ? 300 : -300, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: direction < 0 ? 300 : -300, opacity: 0 }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
+          />
+        </AnimatePresence>
+      </div>
 
       {/* View More Button */}
       <div className="text-center mt-6">
@@ -118,7 +149,7 @@ const Carousel = () => {
           View More
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
