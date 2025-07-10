@@ -20,7 +20,7 @@ const Carousel = () => {
 
   useEffect(() => {
     const fetchPhotos = async () => {
-      const res = await axios.get("http://192.168.31.191:5000/api/photos");
+      const res = await axios.get("http://192.168.1.72:5000/api/photos");
       const allPhotos: Photo[] = res.data;
 
       const projectMap = new Map<string, Photo>();

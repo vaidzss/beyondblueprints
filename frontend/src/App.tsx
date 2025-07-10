@@ -5,11 +5,14 @@ import { useGSAP } from '@gsap/react';
 import { SplitText } from 'gsap/SplitText';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import About from './components/About/About';
 import Portfolio from './components/Portfolio/Portfolio';
 import Contact from './components/Contact/Contact';
 import AdminPage from './components/admin/AdminPage';
 import Layout from './Layout';
+import Thankyou from './components/Thankyou/Thankyou';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText);
 
@@ -23,6 +26,7 @@ function App() {
           <Route path="portfolio" element={<Portfolio />} />
           <Route path="contact" element={<Contact />} />
           <Route path="admin" element={<AdminPage />} />
+          <Route path ="thankyou" element={<Thankyou />} />
         </Route>
       </Routes>
     </BrowserRouter>

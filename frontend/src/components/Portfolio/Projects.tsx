@@ -19,7 +19,7 @@ const Projects = () => {
   const [activeProject, setActiveProject] = useState<string | null>(null);
 
   useEffect(() => {
-    axios.get("http://192.168.31.191:5000/api/photos").then((res) => {
+    axios.get("http://192.168.1.72:5000/api/photos").then((res) => {
       const grouped: ProjectMap = {};
       res.data.forEach((photo: Photo) => {
         if (!grouped[photo.projectId]) {

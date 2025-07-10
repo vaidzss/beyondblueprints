@@ -16,8 +16,8 @@ router.get("/reviews", async (req, res) => {
 
 router.post("/reviews", verifyToken, async (req, res) => {
     try {
-        const { userName, rating,comment} = req.body;
-        const newReview = new Review({ userName, rating, comment});
+        const { customerName, rating,comment} = req.body;
+        const newReview = new Review({ customerName, rating, comment});
         await newReview.save();
         res.status(201).json({ message: "Review created successfully", review: newReview });
     } catch (err) {
