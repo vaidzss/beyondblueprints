@@ -54,7 +54,7 @@ function Testimonials() {
     <div className="min-h-[90vh] bg-[#310e10] flex items-center justify-center px-4 py-10">
       <div className="text-center max-w-2xl w-full">
         <motion.h2
-          className="text-5xl text-white font-libre mb-10"
+          className="text-3xl md:text-5xl text-white font-libre mb-10"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}

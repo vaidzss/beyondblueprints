@@ -2,18 +2,26 @@
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 9999;
   width: 100%;
   height: 100%;
-  background-color: #fff; /* Customize to match your theme */
+  background: radial-gradient(#ffeded, #ffff);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  z-index: 9999;
+  overflow: hidden;
 }
 
 .preloader-logo {
   width: 100px;
   height: 100px;
-  object-fit: contain;
-  border-radius: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.preloader-title {
+  color: #310e10;
+  font-family: 'Libre Baskerville', serif;
+  margin-top: 20px;;
 }

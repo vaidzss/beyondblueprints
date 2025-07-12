@@ -79,7 +79,7 @@ function HomePage() {
 
 
   return (
-    <section id="home">
+    <section id="home" className="overflow-hidden">
       <Navbar />
       <HeroSlideshow/>
 

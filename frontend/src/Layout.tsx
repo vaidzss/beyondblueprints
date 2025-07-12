@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
 import { useLocation, Outlet } from "react-router-dom";
-import Preloader from  "./components/Preloader/Preloader"
+import Preloader from "./components/Preloader/Preloader";
 import { motion } from "framer-motion";
+import { LoadingContext } from "./context/LoadingContext"; // 👈 import
 
 const Layout: React.FC = () => {
   const location = useLocation();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Show loader on route change
     setLoading(true);
-    const timer = setTimeout(() => setLoading(false), 1200); // Adjust duration
+    const timer = setTimeout(() => setLoading(false), 2100); // Match preloader timing
     return () => clearTimeout(timer);
   }, [location.pathname]);
 
   return (
-    <>
+    <LoadingContext.Provider value={{ loading }}>
       <Preloader loading={loading} />
       {!loading && (
         <motion.div
@@ -26,7 +26,7 @@ const Layout: React.FC = () => {
           <Outlet />
         </motion.div>
       )}
-    </>
+    </LoadingContext.Provider>
   );
 };
 

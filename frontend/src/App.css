@@ -10,9 +10,7 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  overflow-x: hidden;
-}
+
 /* Make inactive dots yellow */
 .slick-dots li button::before {
   color: #8c8b89 !important; /* Tailwind yellow-400 */

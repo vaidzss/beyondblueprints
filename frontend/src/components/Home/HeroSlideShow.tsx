@@ -25,7 +25,7 @@ const HeroSlideshow: React.FC = () => {
   }, [heroImages.length]);
 
   return (
-    <div className="hero-slideshow relative w-full h-screen overflow-hidden">
+    <div className="hero-slideshow relative w-full h-screen">
       <AnimatePresence>
         <motion.img
           key={heroImages[index].url}

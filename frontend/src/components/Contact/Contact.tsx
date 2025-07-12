@@ -35,6 +35,7 @@ function Contact() {
             initial="hidden"
             whileInView="visible"
             exit="exit"
+            animate="visible"
             viewport={{ once: false, amount: 0.2 }}
             variants={sectionVariant}
             className="lg:w-1/3 md:w-2/3 w-5/6 h-full bg-[#482426] m-5 shadow-lg"

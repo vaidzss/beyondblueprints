@@ -38,8 +38,9 @@ const About = () => {
       initial="hidden"
       whileInView="visible"
       exit={"exit"}
-      viewport={{ once: false, amount: 0.2 }}
+      viewport={{ once: false, amount: 0.2 ,}}
       variants={sectionVariant}
+      
       className="h-screen bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-rose-50 to-white inline-block md:flex justify-around">
         <div className="md:w-1/2 w-full flex items-center justify-center md:mt-0 mt-36">
         <div className="bg-white rounded-full size-44 md:size-72 shadow-lg">

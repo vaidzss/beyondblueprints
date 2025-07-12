@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const UploadForm = () => {
   const [title, setTitle] = useState("");
@@ -8,10 +9,20 @@ const UploadForm = () => {
   const [projectId, setProjectId] = useState("");
   const [photos, setPhotos] = useState<FileList | null>(null);
 
-  // Review form state
   const [customerName, setCustomerName] = useState("");
   const [comment, setComment] = useState("");
   const [rating, setRating] = useState<number | "">("");
+
+  const [idCheckMessage, setIdCheckMessage] = useState<string | null>(null);
+  const [idCheckColor, setIdCheckColor] = useState<string>("");
+  const [isIdValid, setIsIdValid] = useState<boolean | null>(null);
+  const [checkingId, setCheckingId] = useState(false);
+
+  const [uploadMessage, setUploadMessage] = useState<string | null>(null);
+  const [uploadColor, setUploadColor] = useState<string>("");
+
+  const [reviewMessage, setReviewMessage] = useState<string | null>(null);
+  const [reviewColor, setReviewColor] = useState<string>("");
 
   const navigate = useNavigate();
 
@@ -20,10 +31,54 @@ const UploadForm = () => {
     navigate("/");
   };
 
+  const checkId = async () => {
+    if (!projectId) return;
+
+    setCheckingId(true);
+    try {
+      const res = await axios.get("http://localhost:5000/api/photos");
+      const allPhotos = res.data;
+      const exists = allPhotos.some((photo: any) => photo.projectId === projectId);
+
+      if (exists) {
+        setIdCheckMessage("❌ Project ID already exists!");
+        setIdCheckColor("text-red-600");
+        setIsIdValid(false);
+      } else {
+        setIdCheckMessage("✅ Project ID is available.");
+        setIdCheckColor("text-green-600");
+        setIsIdValid(true);
+      }
+    } catch (err) {
+      console.error("Failed to fetch project IDs", err);
+      setIdCheckMessage("⚠️ Error checking Project ID.");
+      setIdCheckColor("text-yellow-500");
+      setIsIdValid(false);
+    } finally {
+      setCheckingId(false);
+    }
+  };
+
   const handlePhotoUpload = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!photos || photos.length === 0) return alert("No photos selected.");
+    if (isIdValid === false) {
+      setUploadMessage("❌ Upload blocked: Project ID already exists.");
+      setUploadColor("text-red-600");
+      return;
+    }
+
+    if (isIdValid === null) {
+      setUploadMessage("⚠️ Please check if Project ID is available.");
+      setUploadColor("text-yellow-500");
+      return;
+    }
+
+    if (!photos || photos.length === 0) {
+      setUploadMessage("❌ No photos selected.");
+      setUploadColor("text-red-600");
+      return;
+    }
 
     const formData = new FormData();
     formData.append("title", title);
@@ -45,12 +100,20 @@ const UploadForm = () => {
           },
         }
       );
-
       console.log(res.data);
-      alert("Photos uploaded successfully");
+      setUploadMessage("✅ Photos uploaded successfully!");
+      setUploadColor("text-green-600");
+
+      // Reset
+      setTitle("");
+      setDescription("");
+      setProjectId("");
+      setPhotos(null);
+      setIsIdValid(null);
     } catch (err) {
       console.error(err);
-      alert("Upload failed");
+      setUploadMessage("❌ Upload failed.");
+      setUploadColor("text-red-600");
     }
   };
 
@@ -58,47 +121,63 @@ const UploadForm = () => {
     e.preventDefault();
 
     if (!customerName || !comment || rating === "") {
-      alert("Please fill out all fields.");
+      setReviewMessage("❌ Please fill out all review fields.");
+      setReviewColor("text-red-600");
       return;
     }
 
     try {
       const token = localStorage.getItem("token");
-
-const res = await axios.post(
-  "http://localhost:5000/api/reviews",
-  {
-    customerName,
-    comment,
-    rating,
-  },
-  {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  }
-);
+      const res = await axios.post(
+        "http://localhost:5000/api/reviews",
+        {
+          customerName,
+          comment,
+          rating,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       console.log(res.data);
-      alert("Review submitted successfully!");
-
-      // Clear the review form
+      setReviewMessage("✅ Review submitted successfully!");
+      setReviewColor("text-green-600");
       setCustomerName("");
       setComment("");
       setRating("");
     } catch (error) {
       console.error(error);
-      alert("Failed to submit review.");
+      setReviewMessage("❌ Failed to submit review.");
+      setReviewColor("text-red-600");
     }
   };
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIdCheckMessage(null);
+      setUploadMessage(null);
+      setReviewMessage(null);
+    }, 4000);
+    return () => clearTimeout(timer);
+  }, [idCheckMessage, uploadMessage, reviewMessage]);
+
   return (
-    <div className="my-10 justify-items-center items-center space-y-10">
+    <div className="relative px-4 max-w-2xl mx-auto mt-20 space-y-12">
+      {/* Logout */}
+      <button
+        onClick={handleLogout}
+        className="absolute top-4 right-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+      >
+        Logout
+      </button>
+
+      {/* Photo Upload */}
       <div>
-        <h2 className="font-plus font-extrabold text-3xl mb-4">
-          Projects Upload
-        </h2>
-        <form onSubmit={handlePhotoUpload} className="space-y-4 p-4">
+        <h2 className="font-plus font-extrabold text-3xl mb-4">Projects Upload</h2>
+        <form onSubmit={handlePhotoUpload} className="space-y-4 p-4 border rounded-lg shadow bg-white">
           <input
             type="text"
             placeholder="Title"
@@ -121,27 +200,52 @@ const res = await axios.post(
             className="block"
             onChange={(e) => setPhotos(e.target.files)}
           />
-          <input
-            type="text"
-            name="projectId"
-            placeholder="Enter Project ID or Name"
-            value={projectId}
-            onChange={(e) => setProjectId(e.target.value)}
-            required
-          />
+          <div className="flex items-center gap-2">
+            <input
+              type="text"
+              name="projectId"
+              placeholder="Enter Project ID"
+              className="border p-2 w-full"
+              value={projectId}
+              onChange={(e) => setProjectId(e.target.value)}
+              onBlur={checkId}
+              required
+            />
+            <button
+              type="button"
+              onClick={checkId}
+              className="bg-green-600 text-white px-4 py-2 rounded"
+            >
+              {checkingId ? (
+                <AiOutlineLoading3Quarters className="animate-spin text-white" />
+              ) : (
+                "Check ID"
+              )}
+            </button>
+          </div>
+          {idCheckMessage && (
+            <p className={`text-sm font-semibold mt-1 ${idCheckColor}`}>
+              {idCheckMessage}
+            </p>
+          )}
           <button
             type="submit"
             className="bg-blue-600 text-white px-4 py-2 rounded"
           >
             Upload Photos
           </button>
+          {uploadMessage && (
+            <p className={`text-sm font-semibold mt-1 ${uploadColor}`}>
+              {uploadMessage}
+            </p>
+          )}
         </form>
       </div>
 
-      {/* Reviews Upload Form */}
+      {/* Review Upload */}
       <div>
         <h2 className="font-plus font-extrabold text-3xl mb-4">Submit Review</h2>
-        <form onSubmit={handleReviewSubmit} className="space-y-4 p-4">
+        <form onSubmit={handleReviewSubmit} className="space-y-4 p-4 border rounded-lg shadow bg-white">
           <input
             type="text"
             placeholder="Customer Name"
@@ -175,15 +279,12 @@ const res = await axios.post(
           >
             Submit Review
           </button>
+          {reviewMessage && (
+            <p className={`text-sm font-semibold mt-1 ${reviewColor}`}>
+              {reviewMessage}
+            </p>
+          )}
         </form>
-      
-
-      <button
-        onClick={handleLogout}
-        className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-      >
-        Logout
-      </button>
       </div>
     </div>
   );
