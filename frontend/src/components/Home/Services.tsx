@@ -95,14 +95,17 @@ const slideFrom = (direction: "left" | "right"): Variants => ({
 
 const Services: React.FC = () => {
   return (
-    <motion.div
-      className="mt-10 bg-white h-full overflow-x-hidden mb-20 smooth-scroll"
-      initial="hidden"
+    <div
+      className="mt-10 bg-[#fdf4e1] h-full overflow-x-hidden pb-20 smooth-scroll"
+     
+    >
+      <motion.div
+       initial="hidden"
       whileInView="visible"
       exit={"exit"}
       viewport={{ once: false, amount: 0.2 }}
       variants={sectionVariant}
-    >
+      >
       <div className="w-full  text-center p-10 md:p-20">
         <h2 className="text-[#310e10] font-libre font-bold text-5xl">
           Services
@@ -118,7 +121,7 @@ const Services: React.FC = () => {
           return (
             <div
               key={service.name}
-              className={`flex flex-col md:flex-row items-center justify-around px-6 md:px-20 ${
+              className={`flex flex-col my-2 md:my-16 md:flex-row items-center  justify-around px-6 md:px-20 ${
                 !isEven ? "md:flex-row-reverse" : ""
               }`}
             >
@@ -141,22 +144,15 @@ const Services: React.FC = () => {
                 <motion.p
                 exit={"exit"}
                   variants={textChildVariant}
-                  className="text-[#310e10] font-poppins  text-sm leading-relaxed"
+                  className="text-[#ffffff] font-poppins bg-[#310e10] p-5 md:p-6 md:w-[90%] md:text-sm text-xs"
                 >
-                  {service.desc}
+                  &ldquo;{service.desc}&rdquo;
                 </motion.p>
               </motion.div>
 
-            <motion.div
-            exit={"exit"}
-              className="md:size-[30vw] bg-[#310e10] flex justify-center mt-10 md:mt-0 md:p-14 p-8  md:rounded-full"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: false, amount: 0.3 }}
-              variants={slideFrom(imageDirection)}
-            >
+
               <motion.div
-                className=" flex justify-center"
+                className=" flex justify-center md:mt-0 mt-10"
                 initial="hidden"
                 whileInView="visible"
                 exit={"exit"}
@@ -166,15 +162,16 @@ const Services: React.FC = () => {
                 <img
                   src={service.imageUrl}
                   alt={service.name}
-                  className="w-[80%] md:w-[25vw] object-cover shadow-lg backdrop-blur-xl"
+                  className="w-[90%] md:w-[35vw] lg:w-[25vw] object-cover shadow-lg backdrop-blur-xl"
                 />
               </motion.div>
-            </motion.div>
+            
             </div>
           );
         })}
       </div>
-    </motion.div>
+      </motion.div>
+    </div>
   );
 };
 

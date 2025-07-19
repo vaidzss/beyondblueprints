@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { motion, type Variants } from "framer-motion";
 
 type Photo = {
@@ -16,7 +17,7 @@ type ProjectMap = {
 
 const Projects = () => {
   const [projectPhotos, setProjectPhotos] = useState<ProjectMap>({});
-  const [activeProject, setActiveProject] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get("http://localhost:5000/api/photos").then((res) => {
@@ -31,25 +32,9 @@ const Projects = () => {
     });
   }, []);
 
-  const openDialog = (projectId: string) => {
-    setActiveProject(projectId);
+  const goToGallery = (projectId: string) => {
+    navigate(`/portfolio/${projectId}`);
   };
-
-  const closeDialog = () => {
-    setActiveProject(null);
-  };
-  useEffect(() => {
-    if (activeProject) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-
-    // Cleanup on unmount
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [activeProject]);
 
   const sectionVariant: Variants = {
     hidden: {
@@ -94,8 +79,8 @@ const Projects = () => {
         {Object.entries(projectPhotos).map(([projectId, photos]) => (
           <div
             key={projectId}
-            onClick={() => openDialog(projectId)}
-            className="cursor-pointer bg-white rounded-md p-4 shadow-md"
+            onClick={() => goToGallery(projectId)}
+            className="cursor-pointer bg-white rounded-md p-4 shadow-md hover:shadow-xl transition-all"
           >
             <img
               src={photos[0]?.url}
@@ -108,43 +93,6 @@ const Projects = () => {
           </div>
         ))}
       </div>
-
-      {/* Dialog Box */}
-      {activeProject && (
-        <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-[999]">
-          <div className="bg-white rounded-lg w-full h-screen relative flex flex-col overflow-hidden">
-            {/* Header (Sticky) */}
-            <div className="flex justify-between items-center p-4 border-b sticky top-0 bg-white z-10">
-              <h3 className="text-xl font-bold font-playfair text-[#310e10]">
-                {projectPhotos[activeProject]?.[0]?.title}
-              </h3>
-              <button
-                onClick={closeDialog}
-                className="text-2xl font-bold text-gray-600 hover:text-black"
-              >
-                ✕
-              </button>
-            </div>
-
-            {/* Scrollable content */}
-            <div className="overflow-y-auto flex-1 px-4 pb-6">
-              <div className="space-y-4">
-                {projectPhotos[activeProject].map((photo) => (
-                  <img
-                    key={photo._id}
-                    src={photo.url}
-                    alt={photo.description}
-                    className="rounded shadow-sm"
-                  />
-                ))}
-                <p className="font-poppins text-[#6f4d38] text-center">
-                  &ldquo;{projectPhotos[activeProject]?.[0]?.description}&rdquo;
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </motion.div>
   );
 };

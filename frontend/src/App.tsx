@@ -14,6 +14,7 @@ import Contact from './components/Contact/Contact';
 import AdminPage from './components/admin/AdminPage';
 
 import Thankyou from './components/Thankyou/Thankyou';
+import ProjectGallery from './components/Portfolio/ProjectGallery';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText);
 
@@ -29,6 +30,7 @@ function App() {
           <Route path="contact" element={<Contact />} />
           <Route path="admin" element={<AdminPage />} />
           <Route path ="thankyou" element={<Thankyou />} />
+          <Route path="portfolio/:projectId" element={<ProjectGallery />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -82,9 +82,9 @@ function HomePage() {
     <section id="home" className="overflow-hidden">
       <Navbar />
       <HeroSlideshow/>
-
-      <Services />
       <Carousel/>
+      <Services />
+      
       <Testimonials/>
       <After/>
       <Footer/>

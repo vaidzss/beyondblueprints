@@ -104,7 +104,7 @@ const Carousel = () => {
       exit={"exit"}
       viewport={{ once: false, amount: 0.3 }}
       variants={sectionVariant}
-      className="w-full py-12 px-4 relative bg-white overflow-hidden"
+      className="w-full py-12 px-4 relative bg-white overflow-hidden mt-20"
     >
       <h2 className="text-[#310e10] text-center font-libre font-bold text-5xl">
         Portfolio
