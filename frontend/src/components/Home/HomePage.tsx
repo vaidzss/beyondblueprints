@@ -18,7 +18,6 @@ function HomePage() {
 
   const headingRef = useRef<HTMLHeadingElement>(null);
 
-
   useGSAP(() => {
   if (!headingRef.current) return;
 

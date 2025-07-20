@@ -7,9 +7,9 @@ dotenv.config();
 
 const router = express.Router();
 
-// Dummy login credentials
+
 const ADMIN_USERNAME = "admin";
-const ADMIN_PASSWORD = "admin12345";
+const ADMIN_PASSWORD = "beyondblueprint@123";
 
 router.post("/login", (req, res) => {
   const { username, password } = req.body;

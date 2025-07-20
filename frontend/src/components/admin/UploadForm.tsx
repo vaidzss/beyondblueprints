@@ -165,11 +165,11 @@ const UploadForm = () => {
   }, [idCheckMessage, uploadMessage, reviewMessage]);
 
   return (
-    <div className="relative px-4 max-w-2xl mx-auto mt-20 space-y-12">
+    <div className="relative px-4 max-w-2xl mx-auto mt-20 space-y-12 mb-10">
       {/* Logout */}
       <button
         onClick={handleLogout}
-        className="absolute top-4 right-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+        className="absolute top-2 right-2 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
       >
         Logout
       </button>
@@ -211,10 +211,12 @@ const UploadForm = () => {
               onBlur={checkId}
               required
             />
-            <button
+            
+          </div>
+          <button
               type="button"
               onClick={checkId}
-              className="bg-green-600 text-white px-4 py-2 rounded"
+              className="bg-green-600 text-white px-4 py-2 rounded mx-4"
             >
               {checkingId ? (
                 <AiOutlineLoading3Quarters className="animate-spin text-white" />
@@ -222,18 +224,18 @@ const UploadForm = () => {
                 "Check ID"
               )}
             </button>
-          </div>
-          {idCheckMessage && (
-            <p className={`text-sm font-semibold mt-1 ${idCheckColor}`}>
-              {idCheckMessage}
-            </p>
-          )}
+         
           <button
             type="submit"
             className="bg-blue-600 text-white px-4 py-2 rounded"
           >
             Upload Photos
           </button>
+           {idCheckMessage && (
+            <p className={`text-sm font-semibold mt-1 ${idCheckColor}`}>
+              {idCheckMessage}
+            </p>
+          )}
           {uploadMessage && (
             <p className={`text-sm font-semibold mt-1 ${uploadColor}`}>
               {uploadMessage}

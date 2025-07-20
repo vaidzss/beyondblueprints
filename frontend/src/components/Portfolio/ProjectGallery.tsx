@@ -43,49 +43,110 @@ const ProjectGallery = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center px-4 pt-10 pb-20">
-      {/* Back Button */}
-      <button
-        onClick={() => navigate(-1)}
-        className="self-start text-white bg-[#310e10] py-2 px-6 mb-6 rounded hover:bg-[#502b2d] transition-all duration-300"
-      >
-        ← Back
-      </button>
+    <div className="min-h-screen bg-gradient-to-br from-rose-50 to-white">
+      {/* Header */}
+      <div className="bg-white/80 backdrop-blur-sm border-b border-rose-100 sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <button
+              onClick={() => navigate(-1)}
+              className="flex items-center space-x-2 text-[#310e10] hover:text-rose-600 transition-colors duration-300 font-medium"
+            >
+              <AiOutlineLeft className="text-lg" />
+              <span>Back to Portfolio</span>
+            </button>
+            
+            <div className="text-center">
+              <h1 className="text-2xl font-libre text-[#310e10] font-semibold">
+                {photos[0]?.title}
+              </h1>
+              <p className="text-sm text-gray-600 mt-1">
+                {currentIndex + 1} of {photos.length} images
+              </p>
+            </div>
+            
+            <div className="w-20"></div> {/* Spacer for centering */}
+          </div>
+        </div>
+      </div>
 
-      <h1 className="text-4xl font-libre text-[#310e10] mb-10 text-center w-full">
-        {photos[0]?.title}
-      </h1>
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        {/* Main Image Display */}
+        <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden mb-8">
+          <div className="relative aspect-[16/10] bg-gray-50 flex items-center justify-center group">
+            {/* Navigation Buttons */}
+            <button
+              onClick={goPrev}
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-[#310e10] hover:bg-white hover:shadow-lg transition-all duration-300 z-10 opacity-0 group-hover:opacity-100"
+            >
+              <AiOutlineLeft className="text-xl" />
+            </button>
 
-      {/* Image + Description Section */}
-      <div className="w-full flex flex-col lg:flex-row border rounded-md shadow-md overflow-hidden max-w-7xl">
-        {/* Carousel */}
-        <div className="relative flex-1 flex items-center justify-center bg-white p-4 overflow-hidden group">
-          <button
-            onClick={goPrev}
-            className="absolute left-2 top-1/2 transform -translate-y-1/2 text-4xl text-gray-700 hover:text-black z-10"
-          >
-            <AiOutlineLeft />
-          </button>
+            <button
+              onClick={goNext}
+              className="absolute right-4 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center text-[#310e10] hover:bg-white hover:shadow-lg transition-all duration-300 z-10 opacity-0 group-hover:opacity-100"
+            >
+              <AiOutlineRight className="text-xl" />
+            </button>
 
-          <img
-            src={photos[currentIndex].url}
-            alt={photos[currentIndex].description}
-            className="object-contain max-h-[80vh] w-auto mx-10 rounded transition-transform duration-500 group-hover:scale-105"
-          />
+            {/* Main Image */}
+            <img
+              src={photos[currentIndex].url}
+              alt={photos[currentIndex].description}
+              className="max-w-full max-h-full object-contain transition-transform duration-700 group-hover:scale-105"
+            />
+          </div>
 
-          <button
-            onClick={goNext}
-            className="absolute right-2 top-1/2 transform -translate-y-1/2 text-4xl text-gray-700 hover:text-black z-10"
-          >
-            <AiOutlineRight />
-          </button>
+          {/* Image Description */}
+          {photos[currentIndex].description && (
+            <div className="p-6 bg-gradient-to-r from-rose-50 to-white border-t border-rose-100">
+              <p className="text-[#310e10] text-lg leading-relaxed font-light italic text-center">
+                &ldquo;{photos[currentIndex].description}&rdquo;
+              </p>
+            </div>
+          )}
         </div>
 
-        {/* Description */}
-        <div className="p-6 bg-[#fdf8f3] flex items-center justify-center text-center text-[#6f4d38] font-poppins lg:w-[40%] border-t lg:border-t-0 lg:border-l">
-          <p className="text-sm leading-relaxed italic">
-            &ldquo;{photos[currentIndex].description}&rdquo;
-          </p>
+        {/* Thumbnail Gallery */}
+        <div className="bg-white rounded-2xl shadow-lg p-6">
+          <h3 className="text-lg font-semibold text-[#310e10] mb-4 font-libre">
+            Project Gallery
+          </h3>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 xl:grid-cols-10 gap-3 lg:gap-2">
+            {photos.map((photo, index) => (
+              <div
+                key={photo._id}
+                onClick={() => setCurrentIndex(index)}
+                className={`relative aspect-square rounded-lg overflow-hidden cursor-pointer transition-all duration-300 ${
+                  index === currentIndex
+                    ? 'ring-2 ring-rose-500 ring-offset-1 lg:ring-offset-0 scale-105'
+                    : 'hover:scale-105 hover:shadow-md'
+                }`}
+              >
+                <img
+                  src={photo.url}
+                  alt={photo.title}
+                  className="w-full h-full object-cover"
+                />
+                
+                {/* Overlay for selected image */}
+                {index === currentIndex && (
+                  <div className="absolute inset-0 bg-rose-500/20 flex items-center justify-center">
+                    <div className="w-6 h-6 lg:w-4 lg:h-4 bg-rose-500 rounded-full flex items-center justify-center">
+                      <div className="w-2 h-2 lg:w-1.5 lg:h-1.5 bg-white rounded-full"></div>
+                    </div>
+                  </div>
+                )}
+                
+                {/* Image number */}
+                <div className="absolute top-1 right-1 lg:top-0.5 lg:right-0.5 w-5 h-5 lg:w-4 lg:h-4 bg-black/50 text-white text-xs lg:text-[10px] rounded-full flex items-center justify-center">
+                  {index + 1}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
